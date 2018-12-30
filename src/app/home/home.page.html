@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Unit Converter
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h3>Unit Converter</h3>
+
+  <ion-item>
+    <ion-select interface="action-sheet" placeholder="Select Unit" [(ngModel)]="type" (ionChange)="doSelect()">
+      <ion-select-option *ngFor="let type of keys(types)" value="{{type}}">{{type}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div *ngIf="service">
+    <ion-item>
+      <ion-input type="number" placeholder="Input Value" [(ngModel)]="fromValue"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select interface="action-sheet" placeholder="From" [(ngModel)]="from" (ionChange)="doConverter()">
+        <ion-select-option *ngFor="let type of keys(service.units)" value="{{type}}">{{type}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      =
+    </ion-item>
+    <ion-item>
+      <ion-input disabled type="number" placeholder="Converted Value" [(ngModel)]="toValue"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select interface="action-sheet" placeholder="To" [(ngModel)]="to" (ionChange)="doConverter()">
+        <ion-select-option *ngFor="let type of keys(service.units)" value="{{type}}">{{type}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+</ion-content>
