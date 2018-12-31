@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { VolumeConverter } from '../service/volume-converter.service';
 import { TemperatureConverter } from '../service/temperature-converter.service';
+import { IUnitConverter } from '../service/unit-converter.interface';
 
 enum UnitType {
   Temperature = "Temperature",

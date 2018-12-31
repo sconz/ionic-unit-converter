@@ -1,3 +1,7 @@
+import { IUnitConverter } from "./unit-converter.interface";
+import { Injectable } from "@angular/core";
+
+@Injectable()
 export class VolumeConverter implements IUnitConverter {
 
     // from http://metricunitconversion.globefeed.com/Volume_Conversion_Table.asp

@@ -1,5 +1,7 @@
+import { IUnitConverter } from './unit-converter.interface'
+import { Injectable } from '@angular/core';
 
-
+@Injectable()
 export class TemperatureConverter implements IUnitConverter {
 
     /* from http://allmeasures.com/temperature.html
