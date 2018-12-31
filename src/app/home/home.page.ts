@@ -3,11 +3,6 @@ import { VolumeConverter } from '../service/volume-converter.service';
 import { TemperatureConverter } from '../service/temperature-converter.service';
 import { IUnitConverter } from '../service/unit-converter.interface';
 
-enum UnitType {
-  Temperature = "Temperature",
-  Volume = "Volume"
-};
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -16,43 +11,28 @@ enum UnitType {
 export class HomePage {
 
   keys = Object.keys;
-  types = UnitType;
+  selectedType: string;
 
-  type: any;
   fromValue: number;
-  from: any;
+  from: string;
   toValue: number;
-  to: any;
+  to: string;
 
-  service: IUnitConverter;
-  vConverter: VolumeConverter;
-  tConverter: TemperatureConverter;
+  unitTypes = new Map<string, IUnitConverter>();
 
   constructor(volumeConverter: VolumeConverter, temperatureConverter: TemperatureConverter) {
-    this.vConverter = volumeConverter;
-    this.tConverter = temperatureConverter;
-  }
-
-  doSelect() {
-
-    switch (this.type) {
-      case "Temperature":
-        this.service = this.tConverter;
-        break;
-
-      case "Volume":
-        this.service = this.vConverter;
-        break;
-
-      default:
-        this.service = null;
-
-    }
+    this.unitTypes.set('Temperature', temperatureConverter);
+    this.unitTypes.set('Volume', volumeConverter);
   }
 
   doConverter() {
     if (this.from && this.fromValue && this.to) {
-      this.toValue = this.service.doConverter(this.from, this.to, this.fromValue);
+      this.toValue = this.unitTypes.get(this.selectedType).doConverter(this.from, this.to, this.fromValue);
     }
   }
+
+  get units() {
+    return this.unitTypes.get(this.selectedType).units;
+  }
+
 }
